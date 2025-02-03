@@ -4,32 +4,59 @@
 // ✅ JSX döndürmez, sadece veri veya fonksiyon döndürür.
 // ✅ Eğer başka dosyada kullanacaksan, export etmelisin.
 
-
+import React from "react";
 import { useDispatch } from "react-redux";
-import { fetchFail, fetchStart, registerSuccess } from "../features/authSlice";
+import {
+  fetchFail,
+  fetchStart,
+  logoutSuccess,
+  registerSuccess,
+} from "../features/authSlice";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const useAuthCall = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { token } = useSelector((state) => state.auth);
 
   const register = async (userInfo) => {
     dispatch(fetchStart());
     try {
       const { data } = await axios.post(
-        "http://16150.fullstack.clarusway.com/users/",
+        "https://16150.fullstack.clarusway.com/users/",
         userInfo
       );
       console.log(data);
 
-     dispatch(registerSuccess(data))
-
+      dispatch(registerSuccess(data));
+      navigate("/stock");
     } catch (error) {
       dispatch(fetchFail());
     }
   };
 
-  return { register };
+  const logout = async () => {
+    dispatch(fetchStart());
+
+    try {
+      const { data } = await axios(
+        "https://16150.fullstack.clarusway.com/auth/logout",
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+
+      dispatch(logoutSuccess());
+      navigate("/");
+    } catch (error) {}
+  };
+
+  return { register, logout };
 };
 
 export default useAuthCall;
-
