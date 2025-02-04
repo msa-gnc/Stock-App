@@ -48,6 +48,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 import useAuthCall from "../hook/useAuthCall";
+import { useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -56,6 +58,7 @@ function ResponsiveDrawer(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
   const {logout}=useAuthCall()
+  const navigate =useNavigate()
   const handleDrawerClose = () => {
     setIsClosing(true);
     setMobileOpen(false);
@@ -78,16 +81,16 @@ const links=[
     url:""
   },
   {title:"Firms",
-    url:"/firms"
+    url:"firms"
   },
   {title:"Products",
-    url:"/products"
+    url:"products"
   },
   {title:"Purchases",
-    url:"/purchases"
+    url:"purchases"
   },
   {title:"Sales",
-    url:"/sales"
+    url:"sales"
   }
 ]
 
@@ -99,7 +102,7 @@ const links=[
       <List>
         {links.map((text, index) => (
           <ListItem key={index} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={()=>navigate(`${text.url}`)} >
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
@@ -183,6 +186,7 @@ const links=[
         <Toolbar />
         
         {/* Buraya  içerik gelecek */}
+        <Outlet/>
       </Box>
     </Box>
   );
