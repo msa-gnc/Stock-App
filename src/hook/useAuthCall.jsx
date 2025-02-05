@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import {
   fetchFail,
   fetchStart,
+  loginSuccess,
   logoutSuccess,
   registerSuccess,
 } from "../features/authSlice";
@@ -51,12 +52,29 @@ const useAuthCall = () => {
         }
       );
 
-      dispatch(logoutSuccess());
       navigate("/");
-    } catch (error) {}
+      dispatch(logoutSuccess())
+    } catch (error) {
+      dispatch(fetchFail())
+    }
+  };
+  const login = async (userInfo) => {
+    dispatch(fetchStart())
+    try {
+      const { data } = await axios.post(
+        "https://16150.fullstack.clarusway.com/auth/login",
+        userInfo
+      );
+      console.log("Loginde data",data)
+      dispatch(loginSuccess(data))
+      navigate("/stock")
+    } catch (error) {
+        dispatch(fetchFail())
+        
+    }
   };
 
-  return { register, logout };
+  return { register, logout, login };
 };
 
 export default useAuthCall;
