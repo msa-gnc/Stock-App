@@ -60,9 +60,9 @@ const Login = () => {
               actions.resetForm();
               actions.setSubmitting(false);
             }}
-            component={(props) => <LoginForm {...props} />}>
+            component={(props) => <LoginForm {...props} />}/>
               
-            </Formik>
+            
           <Box sx={{ textAlign: "center", mt: 2, color: "secondary.main" }}>
             <Link to="/register">
               Don't have an account? Sign Up
