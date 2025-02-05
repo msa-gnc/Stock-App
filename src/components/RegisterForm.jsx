@@ -16,7 +16,7 @@ const RegisterForm = ({
         variant="outlined"
         fullWidth
         value={values.username}
-        onChange={handleChange}
+        onChange={handleChange} 
         error={touched.username && errors.username}
         helperText={touched.username && errors.username} //validationda verdiğimiz kalıba uymazsa rengi errora çevirmesi için error attribute ı benden false/true degeri bekliyor ondan dolayı daha sağlıklı olması için boolean deger döndürüyoruz.
         // touched da kullanıcının inputa tıklayıp tıklamadığını yakalıyor
