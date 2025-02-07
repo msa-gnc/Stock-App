@@ -37,7 +37,7 @@ const useStockCall = () => {
     try {
       const { data } = await axiosWithToken.get("firms")
        
-      console.log(data);
+      // console.log(data);
       dispatch(firmSuccess(data));
     } catch (error) {
       dispatch(fetchFail());
