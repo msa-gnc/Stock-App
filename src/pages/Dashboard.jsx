@@ -20,6 +20,7 @@ import useAuthCall from "../hook/useAuthCall";
 import { useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
+import MenuListItems from './../components/MuiListItems';
 
 const drawerWidth = 240;
 
@@ -66,40 +67,40 @@ function ResponsiveDrawer(props) {
     { title: "Brands", url: "brands", icon: "public/assets/navbar/brand.svg" },
   ];
 
-  const drawer = (
-    <div>
-      <Toolbar />
-      <List>
-        {links.map((text, index) => (
-          <ListItem key={index} disablePadding>
-            <ListItemButton onClick={() => navigate(`${text.url}`)}
-             sx={{
-              color:"secondary.main",
-              borderRadius:"1rem",
-              transition:"all 0.4s ease-in-out ",
-              "&:hover":{
-                backgroundColor:"secondary.second",
-                color:"white"
-              }
-             }} 
+  // const drawer = (
+  //   <div>
+  //     <Toolbar />
+  //     <List>
+  //       {links.map((text, index) => (
+  //         <ListItem key={index} disablePadding>
+  //           <ListItemButton onClick={() => navigate(`${text.url}`)}
+  //            sx={{
+  //             color:"secondary.main",
+  //             borderRadius:"1rem",
+  //             transition:"all 0.7s ease-in-out ",
+  //             "&:hover":{
+  //               backgroundColor:"secondary.second",
+  //               color:"white"
+  //             }
+  //            }} 
               
-              >
-              <Box
-                sx={{
-                  width: 24,
-                  height: 24,
-                  mask:`url(${text.icon}) no-repeat center`,
-                  backgroundColor:"currentColor",
-                  mr: 2,
-                }}
-              ></Box>
-              <ListItemText primary={text.title} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
+  //             >
+  //             <Box
+  //               sx={{
+  //                 width: 24,
+  //                 height: 24,
+  //                 mask:`url(${text.icon}) no-repeat center`,
+  //                 backgroundColor:"currentColor",
+  //                 mr: 2,
+  //               }}
+  //             ></Box>
+  //             <ListItemText primary={text.title} />
+  //           </ListItemButton>
+  //         </ListItem>
+  //       ))}
+  //     </List>
+  //   </div>
+  // );
 
   // Remove this const when copying and pasting into your project.
   const container =
@@ -172,7 +173,8 @@ function ResponsiveDrawer(props) {
             },
           }}
         >
-          {drawer}
+          {/* {drawer} */}
+          <MenuListItems/> 
         </Drawer>
         <Drawer
           variant="permanent"
@@ -185,8 +187,9 @@ function ResponsiveDrawer(props) {
           }}
           open
         >
-          {drawer}
-        </Drawer>
+          {/* {drawer} */}
+          <MenuListItems/>
+                    </Drawer>
       </Box>
       <Box
         component="main"
