@@ -7,9 +7,12 @@ import Typography from "@mui/material/Typography";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { btnStyle } from "../../styles/globalStyles";
+import useStockCall from "../../hook/useStockCall";
 
 
 export default function FirmCard({ _id, name, phone, address, image }) {
+
+  const {deleteStockData}=useStockCall()
   
   return (
     <Card
@@ -41,7 +44,7 @@ export default function FirmCard({ _id, name, phone, address, image }) {
 
       <CardActions sx={{ justifyContent: "center", gap: 2 }}>
         <EditIcon sx={btnStyle} />
-        <DeleteIcon sx={btnStyle} />
+        <DeleteIcon sx={btnStyle}  onClick={()=>deleteStockData("firms",_id)}  />
       </CardActions>
     </Card>
   );

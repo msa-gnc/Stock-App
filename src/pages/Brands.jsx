@@ -12,7 +12,6 @@ useEffect(()=>{
   getStockData("brands")
 },[])
 
-console.log(brands)
   return (
     <div>Brands</div>
   )
