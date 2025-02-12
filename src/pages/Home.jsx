@@ -2,6 +2,7 @@ import React from 'react'
 import KpiCard from './../components/KpiCard';
 import useStockCall from '../hook/useStockCall';
 import { useEffect } from 'react';
+import { Charts } from './../components/Charts';
 
 const Home = () => {
 
@@ -13,7 +14,8 @@ useEffect(()=>{
 },[])
   return (
     <div>
-      <KpiCard></KpiCard>
+      <KpiCard/>
+      <Charts/>
     </div>
   )
 }
