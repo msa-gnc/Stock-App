@@ -1,87 +1,63 @@
-/* eslint-disable no-undef */
-/** @type {import('tailwindcss').Config} */
+// 'use client';
 
-// (Optional) Import default theme when using a custom font (Step 7)
-//import defaultTheme from 'tailwindcss/defaultTheme';
+import { Card } from '@tremor/react';
+import { useSelector } from 'react-redux';
 
-export default {
-    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-    theme: {
-      extend: {
-        keyframes: {
-          hide: {
-            from: { opacity: "1" },
-            to: { opacity: "0" },
-          },
-          slideDownAndFade: {
-            from: { opacity: "0", transform: "translateY(-6px)" },
-            to: { opacity: "1", transform: "translateY(0)" },
-          },
-          slideLeftAndFade: {
-            from: { opacity: "0", transform: "translateX(6px)" },
-            to: { opacity: "1", transform: "translateX(0)" },
-          },
-          slideUpAndFade: {
-            from: { opacity: "0", transform: "translateY(6px)" },
-            to: { opacity: "1", transform: "translateY(0)" },
-          },
-          slideRightAndFade: {
-            from: { opacity: "0", transform: "translateX(-6px)" },
-            to: { opacity: "1", transform: "translateX(0)" },
-          },
-          accordionOpen: {
-            from: { height: "0px" },
-            to: { height: "var(--radix-accordion-content-height)" },
-          },
-          accordionClose: {
-            from: {
-              height: "var(--radix-accordion-content-height)",
-            },
-            to: { height: "0px" },
-          },
-          dialogOverlayShow: {
-            from: { opacity: "0" },
-            to: { opacity: "1" },
-          },
-          dialogContentShow: {
-            from: {
-              opacity: "0",
-              transform: "translate(-50%, -45%) scale(0.95)",
-            },
-            to: { opacity: "1", transform: "translate(-50%, -50%) scale(1)" },
-          },
-          drawerSlideLeftAndFade: {
-            from: { opacity: "0", transform: "translateX(100%)" },
-            to: { opacity: "1", transform: "translateX(0)" },
-          },
-          drawerSlideRightAndFade: {
-            from: { opacity: "1", transform: "translateX(0)" },
-            to: { opacity: "0", transform: "translateX(100%)" },
-          },
-        },
-        animation: {
-          hide: "hide 150ms cubic-bezier(0.16, 1, 0.3, 1)",
-          slideDownAndFade:
-            "slideDownAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1)",
-          slideLeftAndFade:
-            "slideLeftAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1)",
-          slideUpAndFade: "slideUpAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1)",
-          slideRightAndFade:
-            "slideRightAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1)",
-          // Accordion
-          accordionOpen: "accordionOpen 150ms cubic-bezier(0.87, 0, 0.13, 1)",
-          accordionClose: "accordionClose 150ms cubic-bezier(0.87, 0, 0.13, 1)",
-          // Dialog
-          dialogOverlayShow:
-            "dialogOverlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
-          dialogContentShow:
-            "dialogContentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
-          // Drawer
-          drawerSlideLeftAndFade:
-          "drawerSlideLeftAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1)",
-          drawerSlideRightAndFade: "drawerSlideRightAndFade 150ms ease-in",
-        },
-      },
-    },
-    plugins: [],
-  }
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ');
+}
+
+const data = [
+  {
+    name: 'Recurring revenue',
+    value: '$34.1K',
+    change: '+6.1%',
+    changeType: 'positive',
+  },
+  {
+    name: 'Total users',
+    value: '500.1K',
+    change: '+19.2%',
+    changeType: 'positive',
+  },
+  {
+    name: 'User growth',
+    value: '11.3%',
+    change: '-1.2%',
+    changeType: 'negative',
+  },
+];
+
+export default function KpiCard() {
+
+    const {sales,purchases}=useSelector((state)=>state.stock)
+console.log("purchases",purchases)
+  return (
+    <>
+      <dl className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {data.map((item) => (
+          <Card key={item.name} >
+            <dd className="flex items-start justify-between">
+              <span className="text-tremor-metric font-semibold text-tremor-content-strong dark:text-dark-tremor-content-strong">
+                {item.value}
+              </span>
+              <span
+                className={classNames(
+                  item.changeType === 'positive'
+                    ? 'text-emerald-700 dark:text-emerald-500'
+                    : 'text-red-700 dark:text-red-500',
+                  'text-tremor-default font-medium',
+                )}
+              >
+                {item.change}
+              </span>
+            </dd>
+            <dt className="mt-1 text-tremor-default text-tremor-content dark:text-dark-tremor-content">
+              {item.name}
+            </dt>
+          </Card>
+        ))}
+      </dl>
+    </>
+  );
+}
