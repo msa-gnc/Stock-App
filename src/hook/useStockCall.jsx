@@ -133,12 +133,51 @@ const useStockCall = () => {
     }
   };
 
+  /* -------------------------------------------------------------------------- */
+  const getPurcBrandPro = async () => {
+    dispatch(fetchStart());
+
+    try {
+      // const [a,b,c]=[2,4,6]  => Array destructure
+
+      const [purchases, brands, products] = await Promise.all([
+        axiosWithToken("purchases"),
+        axiosWithToken("brands"),
+        axiosWithToken("products"),
+      ]);
+ 
+      dispatch(getProCatBrandSuccess([purchases?.data?.data,brands?.data?.data,products?.data?.data]))
+    } catch (error) {
+      dispatch(fetchFail());
+    }
+  };
+/* -------------------------------------------------------------------------- */
+  const getSalesBrandPro = async () => {
+    dispatch(fetchStart());
+
+    try {
+      // const [a,b,c]=[2,4,6]  => Array destructure
+
+      const [sales, brands, products] = await Promise.all([
+        axiosWithToken("sales"),
+        axiosWithToken("brands"),
+        axiosWithToken("products"),
+      ]);
+ 
+      dispatch(getProCatBrandSuccess([sales?.data?.data,brands?.data?.data,products?.data?.data]))
+    } catch (error) {
+      dispatch(fetchFail());
+    }
+  };
+
   return {
     getStockData,
     deleteStockData,
     createStockData,
     updateStockData,
     getProCatBrand,
+    getPurcBrandPro,
+    getSalesBrandPro
   };
 };
 
